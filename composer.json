@@ -1,7 +1,7 @@
 {
     "name": "puwnz/wp-admin-template",
     "description": "To help for wordpress admin template",
-    "type": "wordpress-muplugins",
+    "type": "wordpress-muplugin",
     "license": "MIT",
     "autoload": {
         "psr-4": {
