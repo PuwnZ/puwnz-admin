@@ -13,8 +13,8 @@ $currentUrl = remove_query_arg(wp_removable_query_args(), $currentUrl);
 $maxPage = ceil($total_items / $table->getItemsPerPage());
 
 ?>
-<div class="tablenav-pages">
-    <span class="displaying-num">
+<div class="puwnz-leading-8">
+    <span class="puwnz-mr-2">
         <?php echo sprintf(
         /* translators: %s: Number of items. */
             _n('%s item', '%s items', $total_items),
@@ -44,9 +44,8 @@ $maxPage = ceil($total_items / $table->getItemsPerPage());
             );
         }
         ?>
-        <span class="screen-reader-text"><?php _e('Current Page') ?></span>
         <span id="table-paging" class="paging-input">
-            <span class="tablenav-paging-text">
+            <span class="tablenav-paging-text puwnz-mx-2">
                 <?php echo sprintf(
                     _x('%1$s of %2$s', 'paging'),
                     $pageNumber,

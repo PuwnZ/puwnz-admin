@@ -14,6 +14,11 @@ final class Table implements ActionViewInterface
 
     private ?\Closure $items = null;
     private int $itemsLength;
+    private int $gridCol;
+
+    public function __construct(int $gridCol = 12) {
+        $this->gridCol = $gridCol;
+    }
 
     public function display(): void
     {
@@ -29,9 +34,9 @@ final class Table implements ActionViewInterface
         return $this->columns;
     }
 
-    public function addColumn(string $key, string $title): Table
+    public function addColumn(string $key, string $title, int $gridCol = 2): Table
     {
-        $this->columns[$key] = $title;
+        $this->columns[$key] = new TableColumn($key, $title, $gridCol);
 
         return $this;
     }
@@ -119,5 +124,10 @@ final class Table implements ActionViewInterface
     public function support(string $action): bool
     {
         return $action === 'list';
+    }
+
+    public function getGridCol(): int
+    {
+        return $this->gridCol;
     }
 }

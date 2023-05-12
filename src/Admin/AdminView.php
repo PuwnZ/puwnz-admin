@@ -17,12 +17,14 @@ final class AdminView implements ActionInterface
     private string $role;
     /** @var ActionViewInterface[] */
     private array $actions = [];
+    private ?string $icon;
 
-    public function __construct(string $title, string $slug, string $role = 'administrator')
+    public function __construct(string $title, string $slug, string $role = 'administrator', ?string $icon = null)
     {
         $this->title = $title;
         $this->slug = $slug;
         $this->role = $role;
+        $this->icon = $icon;
     }
 
     public function display(): void
@@ -49,6 +51,7 @@ final class AdminView implements ActionInterface
             {
                 $this->display();
             },
+            $this->icon
         );
     }
 

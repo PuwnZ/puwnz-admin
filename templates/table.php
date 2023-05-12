@@ -1,6 +1,7 @@
 <?php
 
 use Puwnz\WpAdminTemplate\Admin\Action\Table;
+use Puwnz\WpAdminTemplate\Admin\Action\TableColumn;
 
 /** @var ?Table $table */
 $table = $args['table'] ?? null;
@@ -10,59 +11,44 @@ if ($table === null) {
 }
 
 $items = $table->getItems();
+/** @var TableColumn[] $columns */
 $columns = $table->getColumns();
 $actions = $table->getActions();
 
 ?>
-<div class="wrap">
-    <div class="tablenav top">
-        <?php get_template_part('puwnz-admin/pagination', null, ['table' => $table]); ?>
-    </div>
-    <table class="wp-list-table widefat fixed striped table-view-list">
-        <thead>
-        <tr>
+<div
+    class="puwnz-w-full puwnz-mt-4">
+    <div
+        class="puwnz-bg-white puwnz-p-4 puwnz-border puwnz-rounded-md puwnz-border-gray-300">
+        <div
+            class="puwnz-grid puwnz-grid-cols-<?php echo $table->getGridCol(); ?> puwnz-gap-2 puwnz-bg-gray-100 puwnz-border puwnz-rounded-md puwnz-p-2 puwnz-border-gray-300 puwnz-font-bold puwnz-justify-items-center">
             <?php
-            foreach ($columns as $key => $column) {
-                get_template_part('puwnz-admin/column', $key, ['value' => $column]);
+            foreach ($columns as $column) {
+                get_template_part('puwnz-admin/column', $column->getKey(), ['column' => $column, 'value' => $column->getTitle()]);
             }
             if ($actions !== []) {
                 get_template_part('puwnz-admin/column', 'actions', ['value' => 'Actions']);
             }
             ?>
-        </tr>
-        </thead>
-        <tbody>
+        </div>
         <?php
         foreach ($items as $item) {
             ?>
-            <tr>
+            <div class="hover:puwnz-bg-gray-50 puwnz-grid puwnz-grid-cols-<?php echo $table->getGridCol(); ?> puwnz-gap-2 puwnz-mt-4 puwnz-border puwnz-rounded-md puwnz-p-2 puwnz-border-gray-300 puwnz-justify-items-center">
                 <?php
-                foreach (array_keys($columns) as $key) {
-                    get_template_part('puwnz-admin/column', $key, ['value' => $item[$key]] ?? '');
+                foreach ($columns as $column) {
+                    get_template_part('puwnz-admin/column', $column->getKey(), ['column' => $column, 'value' => $item[$column->getKey()]] ?? '');
                 }
                 if ($actions !== []) {
                     get_template_part('puwnz-admin/column', 'actions', ['actions' => $actions, 'item' => $item]);
                 }
                 ?>
-            </tr>
+            </div>
             <?php
         }
         ?>
-        </tbody>
-        <tfoot>
-        <tr>
-            <?php
-            foreach ($columns as $key => $column) {
-                get_template_part('puwnz-admin/column', $key, ['value' => $column]);
-            }
-            if ($actions !== []) {
-                get_template_part('puwnz-admin/column', 'actions', ['value' => 'Actions']);
-            }
-            ?>
-        </tr>
-        </tfoot>
-    </table>
-    <div class="tablenav bottom">
-        <?php get_template_part('puwnz-admin/pagination', null, ['table' => $table]); ?>
+        <div class="puwnz-w-full puwnz-mt-4">
+            <?php get_template_part('puwnz-admin/pagination', null, ['table' => $table]); ?>
+        </div>
     </div>
 </div>
