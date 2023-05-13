@@ -7,4 +7,6 @@ namespace Puwnz\WpAdminTemplate\Admin\Action;
 interface ActionViewInterface extends ActionInterface
 {
     public function support(string $action): bool;
+
+    public function getActionKey(): string;
 }

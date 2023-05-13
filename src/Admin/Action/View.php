@@ -6,7 +6,7 @@ namespace Puwnz\WpAdminTemplate\Admin\Action;
 
 use Puwnz\WpAdminTemplate\Admin\ViewTab;
 
-final class View implements ActionViewInterface
+final class View extends AbstractActionView
 {
     private string $template = 'puwnz-admin/view';
     /** @var ViewTab[] */
@@ -29,16 +29,28 @@ final class View implements ActionViewInterface
         return $this;
     }
 
-    public function addTab(string $title, ?callable $callable = null): View
+    public function addTab(string $title, ?callable $callable = null, ?string $capability = null): View
     {
-        $this->tabs[] = new ViewTab($title, $callable);
+        $this->tabs[] = new ViewTab($title, $callable, $capability);
 
         return $this;
     }
 
     public function getTabs(): array
     {
-        return $this->tabs;
+        $tabs = [];
+
+        foreach ($this->tabs as $tab) {
+            if ($tab->getCapability() === null) {
+                $tab->setCapability($this->getCapability());
+            }
+
+            if (current_user_can($tab->getCapability())) {
+                $tabs[] = $tab;
+            }
+        }
+
+        return $tabs;
     }
 
     public function getItem(): array
@@ -60,6 +72,10 @@ final class View implements ActionViewInterface
 
     public function support(string $action): bool
     {
-        return $action === 'view' && !empty($_GET['item'] ?? null);
+        return $action === $this->getActionKey() && !empty($_GET['item'] ?? null);
+    }
+
+    public function getActionKey(): string {
+        return 'view';
     }
 }

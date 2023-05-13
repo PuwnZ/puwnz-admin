@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Puwnz\WpAdminTemplate\Admin\Action;
 
-final class Table implements ActionViewInterface
+final class Table extends AbstractActionView
 {
     private array $actions = [];
     private string $pageKey = 'paged';
@@ -16,8 +16,10 @@ final class Table implements ActionViewInterface
     private int $itemsLength;
     private int $gridCol;
 
-    public function __construct(int $gridCol = 12) {
+    public function __construct(int $gridCol = 12, ?string $capability = null)
+    {
         $this->gridCol = $gridCol;
+        parent::__construct($capability);
     }
 
     public function display(): void
@@ -123,11 +125,16 @@ final class Table implements ActionViewInterface
 
     public function support(string $action): bool
     {
-        return $action === 'list';
+        return $action === $this->getActionKey();
     }
 
     public function getGridCol(): int
     {
         return $this->gridCol;
+    }
+
+    public function getActionKey(): string
+    {
+        return 'list';
     }
 }
