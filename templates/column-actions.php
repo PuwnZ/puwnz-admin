@@ -10,25 +10,25 @@
                 switch ($action) {
                     case \Puwnz\WpAdminTemplate\Admin\AdminView::VIEW:
                         ?>
-                        <a href="<?php echo esc_url(add_query_arg(['action' => $action, 'item' => $item['id']], $currentUrl)); ?>"
+                        <a href="<?php echo esc_url(add_query_arg(['action' => $action, 'item' => $item->getId()], $currentUrl)); ?>"
                            class="dashicons-before dashicons-visibility"></a>
                         <?php
                         break;
                     case \Puwnz\WpAdminTemplate\Admin\AdminView::EDIT:
                         ?>
-                        <a href="<?php echo esc_url(add_query_arg(['action' => $action, 'item' => $item['id']], $currentUrl)); ?>"
+                        <a href="<?php echo esc_url(add_query_arg(['action' => $action, 'item' => $item->getId()], $currentUrl)); ?>"
                            class="dashicons-before dashicons-edit"></a>
                         <?php
                         break;
                     case \Puwnz\WpAdminTemplate\Admin\AdminView::DELETE:
                         ?>
-                        <a href="<?php echo esc_url(add_query_arg(['action' => $action, 'item' => $item['id']], $currentUrl)); ?>"
+                        <a href="<?php echo esc_url(add_query_arg(['action' => $action, 'item' => $item->getId()], $currentUrl)); ?>"
                            class="dashicons-before dashicons-trash attention"></a>
                         <?php
                         break;
                     default:
                         ?>
-                        <a href="<?php echo esc_url(add_query_arg(['action' => $action, 'item' => $item['id']], $currentUrl)); ?>"
+                        <a href="<?php echo esc_url(add_query_arg(['action' => $action, 'item' => $item->getId()], $currentUrl)); ?>"
                            class="button button-secondary"><?php echo $action; ?></a>
                         <?php
                         break;

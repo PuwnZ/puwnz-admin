@@ -72,8 +72,15 @@ final class AdminView implements ActionInterface
             $action->setCapability($this->capability);
         }
 
+        $action->setAdminView($this);
+
         $this->actions[] = $action;
 
         return $this;
+    }
+
+    public function getSlug(): string
+    {
+        return $this->slug;
     }
 }

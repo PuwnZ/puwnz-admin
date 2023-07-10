@@ -5,7 +5,7 @@ use Puwnz\WpAdminTemplate\Admin\Action\Table;
 /** @var Table $table */
 $table = $args['table'] ?? new Table();
 
-$total_items = $table->getItemsLength() ?? 0;
+$total_items = $table->getRetrieveTotalItems() ?? 0;
 $pageNumber = $table->getCurrentPage();
 
 $currentUrl = set_url_scheme('http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
